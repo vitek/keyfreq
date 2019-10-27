@@ -1,0 +1,44 @@
+<!doctype>
+<html>
+  <head></head>
+  <body>
+    <p>
+      <h1>Single press stats (total events {{total_events}})</h2>
+      <table>
+        <thead>
+          <tr>
+            <td>Keysym</td>
+            <td>Times</td>
+            <td>Ratio</td>
+          </tr>
+          {% for keysym, times in single.most_common() %}
+          <tr>
+            <td>{{keysym}}</td>
+            <td style="text-align: right">{{times}}</td>
+            <td style="text-align: right">{{'%.02f' % (100 * times / total_events)}}%</td>
+          </tr>
+          {% endfor %}
+        </thead>
+      </table>
+    </p>
+    <p>
+      <h2>Combo stats  (total events {{total_combo_events}})</h2>
+      <table>
+        <thead>
+          <tr>
+            <td>Keysym</td>
+            <td>Times</td>
+            <td>Ratio</td>
+          </tr>
+          {% for keysym, times in combo.most_common() %}
+          <tr>
+            <td>{{" + ".join(keysym)}}</td>
+            <td style="text-align: right">{{times}}</td>
+            <td style="text-align: right">{{'%.02f' % (100 * times / total_combo_events)}}%</td>
+          </tr>
+          {% endfor %}
+        </thead>
+      </table>
+    </p>
+  </body>
+</html>
