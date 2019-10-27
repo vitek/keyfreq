@@ -1,5 +1,6 @@
 import collections
 import subprocess
+import sys
 
 from code2sym import KEYCODE_TO_KEYSYM
 
@@ -43,9 +44,14 @@ def main():
     freqs_combo = collections.Counter()
     pressed = ()
 
+    if len(sys.argv) != 2:
+        print(f'Usage: {sys.argv[0]} <xinput-id>', file=sys.stderr)
+        sys.exit(1)
+
+    xinput_id = sys.argv[1]
     try:
         with subprocess.Popen(
-                ['xinput', 'test', '11'],
+                ['xinput', 'test', xinput_id],
                 stdout=subprocess.PIPE, encoding='ascii') as xinput:
             for line in xinput.stdout:
                 event, keysym = handle_key(line)
